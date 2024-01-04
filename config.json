@@ -1,0 +1,12 @@
+{
+  "db": {
+    "driver": "pdo_mysql",
+    "host": "db",
+    "port": 3306,
+    "user": "root",
+    "password": "example",
+    "dbname": "newDB",
+    "charset": "utf8"
+  },
+  "is_dev": true
+}

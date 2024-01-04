@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Model\Entity;
+
+use App\Model\Repository\UserEntityRepository;
+
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Table;
+
+#[Entity(repositoryClass: UserEntityRepository::class)]
+#[Table(name: 'user_table')]
+class UserEntity
+{
+    #[Id, GeneratedValue, Column]
+    private int $id;
+    #[Column]
+    private string $firstName;
+    #[Column]
+    private string $lastName;
+    #[Column]
+    private string $email;
+    #[Column]
+    private string $password;
+
+
+    public function __construct(string $firstName, string $lastName, string $email, string $password)
+    {
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->email = $email;
+        $this->password = $password;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+
+}
