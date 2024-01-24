@@ -1,14 +1,16 @@
 <?php
+declare(strict_types=1);
 namespace MorenoGeneralProbeFrameWork\http;
 
-use App\Controller\NotFoundController;
+use MorenoGeneralProbeFrameWork\dependencyInjection\Container;
 
 class Router
 {
-    private array $routes;
-    private array $notFoundCallableArray; // [NotFoundController::class,'notFoundFunc']
+// [NotFoundController::class,'notFoundFunc']
 
-    public function __construct(string $pathToRoutes,array $notFoundCallableArray)
+    private array $routes;
+
+    public function __construct(private string $pathToRoutes, private array $notFoundCallableArray, private Container $container)
     {
         $routes=$this->mergeArraysFromFolder($pathToRoutes);
         $transformedRoutes=[];
@@ -28,10 +30,10 @@ class Router
         if(isset($this->routes[$method][$path])){
             $handler=$this->routes[$method][$path];
         }
-
-        call_user_func([new $handler[0](), $handler[1]],...$request->getFunctionParameters());
+        $call_class=$this->container->get($handler[0]);
+        call_user_func([$call_class, $handler[1]],...$request->getFunctionParameters());
     }
-    private function mergeArraysFromFolder($path):array
+    private function mergeArraysFromFolder(string $path):array
     {
         $merged=[];
         $path=rtrim($path,'/').'/';

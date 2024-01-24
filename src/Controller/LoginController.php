@@ -12,7 +12,7 @@ class LoginController extends AbstractController
         $this->view->renderFromResponse(new Response($message), $this->view::PATH_TO_LOGIN_UP_LAYOUT);
     }
 
-    public function login($email,$password)
+    public function login($email,$password) //model
     {
      $results =   $this->em->getRepository(UserEntity::class)->findBy(array('email'=>$email,
             'password'=> hash('sha256',$password)
